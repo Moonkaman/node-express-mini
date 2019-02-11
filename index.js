@@ -40,6 +40,17 @@ server.delete('/api/users/:id', (req, res) => {
     .catch(_ => res.status(500).json({error: 'The user could not be removed'}));
 })
 
+server.put('/api/users/:id', (req, res) => {
+  const userID = req.params.id;
+  if(!req.body.name || !req.body.bio) {
+    res.status(400).json({error: 'Please provide a name and bio for the user.'})
+  } else {
+    db.update(userID, req.body)
+      .then(updated => updated === 0 ? res.status(404).json({error: 'User not found'}) : db.findById(userID).then(user => res.status(200).json(user)).catch(_ => res.status(500).json({error: 'user cannot be retrieved'})))
+      .catch(_ => res.status(500).json({error: 'The user information could not be modified.'}));
+  }
+})
+
 server.listen(4000, _ => {
   console.log('Server running on port 4000');
 })
