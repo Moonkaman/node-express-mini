@@ -7,8 +7,9 @@ import "./User.css";
 const UsersList = props => {
   return (
     <div className="users-cont">
+      <h1>Users</h1>
       {props.users.map(user => (
-        <User key={user.id} user={user} />
+        <User deleteUser={props.deleteUser} key={user.id} user={user} />
       ))}
     </div>
   );

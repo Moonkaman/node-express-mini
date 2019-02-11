@@ -5,6 +5,7 @@ const User = props => {
     <div className="user-cont">
       <h2>{props.user.name}</h2>
       <p>{props.user.bio}</p>
+      <button onClick={e => props.deleteUser(e, props.user.id)}>Delete</button>
     </div>
   );
 };
