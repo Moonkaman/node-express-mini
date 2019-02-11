@@ -4,7 +4,13 @@ const db = require('./data/db');
 
 const server = express();
 
-server.use(express.json());
+server.use(express.json(),
+function(req, res, next) {
+  res.set({'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE'
+  })
+  next();
+});
 
 server.get('/api/users', (req, res) => {
   db.find()
